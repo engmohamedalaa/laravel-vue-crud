@@ -19,11 +19,13 @@ use Illuminate\Support\Facades\Route;
 // });
 
 // Route::get('posts', 'PostController@index');
-Route::get(
-    'posts',
-    [App\Http\Controllers\Api\PostController::class, 'index']
-);
+// Route::get(
+//     'posts',
+//     [App\Http\Controllers\Api\PostController::class, 'index']
+// );
 Route::get(
     'categories',
     [App\Http\Controllers\Api\CategoryController::class, 'index']
 );
+
+Route::apiResource('posts', Api\PostController::class);
