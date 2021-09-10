@@ -4,9 +4,10 @@ import Vue from 'vue';//import Vue Libray
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 // Vue.use(Plugin);
-import postsBody from './components/App';
+// import postsBody from './components/App';
 
 Vue.component('pagination', require('laravel-vue-pagination'));
+Vue.component('posts-search', require('./components/Posts/postSearch'));
 // Vue.component('posts-index',require('./components/Posts/index').default);
 // Vue.component('PostIndex',require('./components/Posts/index'));
 // Vue.component('PostCreate',require('./components/Posts/create'));

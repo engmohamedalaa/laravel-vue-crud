@@ -10,7 +10,8 @@
             </li>
         </ul>
         <div>
-            <router-view></router-view>
+          <posts-search></posts-search>
+          <router-view></router-view>
         </div>
     </div>
 </template>

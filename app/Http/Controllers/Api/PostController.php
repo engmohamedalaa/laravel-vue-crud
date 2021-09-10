@@ -25,6 +25,20 @@ class PostController extends Controller
         // })->paginate(20);
         // return PostResource::collection($posts);
 
+        // $sortField=\request('sort_field', 'created_at');
+        // if(!in_array($sortField,['id','title','body','created_at'])){
+        //     $sortField = 'created_at';
+        // }
+        // $sortDirection=\request('sort_direction', 'desc');
+        // if(!in_array($sortDirection,['asc','desc'])){
+        //     $sortDirection = 'desc';
+        // }
+        // $posts=Post::when(request('category_id','') !='',function ($q){
+        //     $q->where('category_id',request('category_id'));
+        // })->orderBy($sortField,$sortDirection)
+        //     ->paginate(10);
+        // return PostResource::collection($posts);
+
         $sortField=\request('sort_field', 'created_at');
         if(!in_array($sortField,['id','title','body','created_at'])){
             $sortField = 'created_at';
@@ -35,7 +49,10 @@ class PostController extends Controller
         }
         $posts=Post::when(request('category_id','') !='',function ($q){
             $q->where('category_id',request('category_id'));
-        })->orderBy($sortField,$sortDirection)
+        })->when(request('title_search','') !='',function ($q){
+            $q->where('title','LIKE','%'.request('title_search').'%');
+        })
+            ->orderBy($sortField,$sortDirection)
             ->paginate(10);
         return PostResource::collection($posts);
     }
@@ -103,8 +120,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+     public function destroy(Post $post)
+     {
+         $post->delete();
+         return response()->noContent();
+     }
 }

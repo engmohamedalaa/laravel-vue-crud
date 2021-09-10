@@ -9,7 +9,7 @@
     </head>
     <body>
         <div id="app">
-            <app></app>
+          <app></app>
             <!-- <posts-index></posts-index> -->
         </div>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
