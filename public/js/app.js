@@ -2105,6 +2105,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2113,7 +2126,9 @@ __webpack_require__.r(__webpack_exports__);
         title: '',
         text: '',
         category_id: ''
-      }
+      },
+      errors: {},
+      form_submiting: false
     };
   },
   mounted: function mounted() {
@@ -2127,8 +2142,28 @@ __webpack_require__.r(__webpack_exports__);
     submit_form: function submit_form() {
       var _this2 = this;
 
+      this.form_submiting = true;
       axios.post('/api/posts', this.fields).then(function (response) {
+        swal({
+          title: "تم الاضافة بنجاح",
+          icon: "success",
+          button: "إغلاق"
+        });
+
         _this2.$router.push('/app');
+
+        _this2.form_submiting = false;
+      })["catch"](function (error) {
+        swal({
+          title: "عفوا يوجد مشكلة!",
+          icon: "error",
+          button: "Close"
+        });
+
+        if (error.response.status === 422) {
+          _this2.errors = error.response.data.errors;
+          _this2.form_submiting = false;
+        }
       });
     }
   }
@@ -20653,7 +20688,7 @@ var render = function() {
         }
       },
       [
-        _vm._v("\n        Post Title:"),
+        _vm._v("\n      Post Title:"),
         _c("br"),
         _vm._v(" "),
         _c("input", {
@@ -20678,6 +20713,12 @@ var render = function() {
           }
         }),
         _vm._v(" "),
+        _vm.errors && _vm.errors.title
+          ? _c("div", { staticClass: "alert alert-danger" }, [
+              _vm._v("\n          " + _vm._s(_vm.errors.title[0]) + "\n      ")
+            ])
+          : _vm._e(),
+        _vm._v(" "),
         _c("textarea", {
           directives: [
             {
@@ -20699,6 +20740,12 @@ var render = function() {
             }
           }
         }),
+        _vm._v(" "),
+        _vm.errors && _vm.errors.body
+          ? _c("div", { staticClass: "alert alert-danger" }, [
+              _vm._v("\n          " + _vm._s(_vm.errors.body[0]) + "\n      ")
+            ])
+          : _vm._e(),
         _vm._v(" "),
         _c(
           "select",
@@ -20744,9 +20791,21 @@ var render = function() {
           2
         ),
         _vm._v(" "),
+        _vm.errors && _vm.errors.category_id
+          ? _c("div", { staticClass: "alert alert-danger" }, [
+              _vm._v(
+                "\n          " + _vm._s(_vm.errors.category_id[0]) + "\n      "
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
         _c("br"),
         _vm._v(" "),
-        _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Save Post")])
+        _c("input", {
+          staticClass: "btn btn-primary",
+          attrs: { type: "submit", disabled: _vm.form_submiting },
+          domProps: { value: _vm.form_submiting ? "Saving Post..." : "Save" }
+        })
       ]
     )
   ])
