@@ -14,6 +14,7 @@ Vue.component('pagination', require('laravel-vue-pagination'));
 import App from './components/App';
 import PostIndex from './components/Posts/index';
 import PostCreate from './components/Posts/create';
+import PostEdit from './components/Posts/edit';
 
 const router = new VueRouter({
     mode :'history',
@@ -27,6 +28,11 @@ const router = new VueRouter({
             path:'/posts/create',
             component: PostCreate,
             name:'posts.create'
+        },
+        {
+            path: '/posts/edit/:id',
+            component: PostEdit,
+            name: 'posts.edit'
         }
     ]
 })

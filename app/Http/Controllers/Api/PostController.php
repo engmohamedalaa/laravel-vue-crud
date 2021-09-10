@@ -68,9 +68,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        //
+        return new PostResource($post);
     }
 
     /**
@@ -91,10 +91,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+     public function update(StorePostRequest $request, Post $post)
+     {
+         $post->update($request->validated());
+         return new PostResource($post);
+     }
 
     /**
      * Remove the specified resource from storage.

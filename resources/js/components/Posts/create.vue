@@ -62,7 +62,7 @@ export default {
               swal({
                 title:"عفوا يوجد مشكلة!",
                 icon: "error",
-                button: "Close",
+                button: "إغلاق",
               })
               if(error.response.status === 422){
                   this.errors = error.response.data.errors;

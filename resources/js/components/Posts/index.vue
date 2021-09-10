@@ -29,6 +29,7 @@
             <span :class="this.sort_field === 'created_at' && this.sort_direction === 'asc' ? 'text-dark' : 'text-secondary'">&uarr;</span>
             <span :class="this.sort_field === 'created_at' && this.sort_direction === 'desc' ? 'text-dark' : 'text-secondary'">&darr;</span>
           </th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -37,6 +38,9 @@
           <td>{{ post.title }}</td>
           <td>{{ post.body.substring(0,30) }}</td>
           <td>{{ post.created_at }}</td>
+          <td>
+          <router-link :to="{ name:'posts.edit', params:{ id:post.id} }" class="btn btn-success">Edit</router-link>
+          </td>
         </tr>
       </tbody>
     </table>
